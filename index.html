@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>CLIMA</title>
+</head>
+<body>
+    
+    <div class="buscador">
+        <h1>CONSULTA EL CLIMA</h1>
+        <input placeholder="CIUDAD" id="search">
+    
+    <select id="units"> <option value="f">Fahrenheit</option><option value="m">Celcius</option></select>
+    <button onclick="getweather()">Obtener Clima</button><br>
+</div>
+    <img id="image">   
+    <div id="output"></div>
+
+<script>
+
+function getweather(){
+    var city = document.getElementById("search").value;
+    var units = document.getElementById("units").value;
+    fetch("http://api.weatherstack.com/current?access_key=8f2902f310fe905b398230d955c57531&query="+city+"&units="+units).then(a => a.json()).then(Response =>{
+        document.getElementById("image").src = Response.current.weather_icons[0];
+        document.getElementById("output").innerHTML="<h1>"+Response.current.weather_descriptions[0]+"</h1>Temperature:"+Response.current.temperature+"<br>feels like"+Response.current.feelslike +"<br> UV index:"+Response.current.UV_index+"<br> Humidity:"+Response.current.humidity+"<br> Cloud cover:"+Response.current.cloudcover;
+    });
+}
+
+
+</script>
+
+
+</body>
+</html>
